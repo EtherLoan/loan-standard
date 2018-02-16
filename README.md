@@ -18,4 +18,4 @@ This reporsitory contain an EIP's loan standard proposal and the interface imple
 
 ## State Diagram
 
-![alt text](http://url/to/img.png)
+![Loan Basic Diagram](https://github.com/EtherLoan/loan-standard/blob/master/diagrams/state-diagram.png)
