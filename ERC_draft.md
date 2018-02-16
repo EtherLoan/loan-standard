@@ -200,5 +200,13 @@ OPTIONAL - This method can be used to improve usability, but interfaces and othe
 
 ## Implementation
 
+### Interface Implementation
+
+[Loan](https://github.com/EtherLoan/loan-standard/blob/master/contracts/standard/Loan.sol) just the obligatory functions.
+
+[LoanBasic](https://github.com/EtherLoan/loan-standard/blob/master/contracts/standard/LoanBasic.sol) add optional functions.
+
+### Logic Implementations
+
 ## Copyright
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
