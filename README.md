@@ -15,3 +15,7 @@ This reporsitory contain an EIP's loan standard proposal and the interface imple
 ### LoanBasic
 
 [LoanBasic](https://github.com/EtherLoan/loan-standard/blob/master/contracts/standard/LoanBasic.sol) add optional functions.
+
+## State Diagram
+
+![alt text](http://url/to/img.png)
