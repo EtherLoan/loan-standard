@@ -30,7 +30,7 @@ contract LoanBasic is Loan {
 
   /// @notice trigger when cancel function is successfully called.
   /// @dev trigger when cancel function is successfully called.
-  event Cancel();
+  event Cancelled();
 
   /// @notice trigger when total payment paid by borrower is lower than the total amout to be paid and the time to paid the loan expire.
   /// @dev trigger when total payment paid by borrower is higher than the total amout to be paid and the time to paid the loan expire.
