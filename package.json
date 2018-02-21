@@ -8,8 +8,17 @@
     "lint": "eslint .",
     "coverage": "solidity-coverage",
     "generate-wallet": "node ./scripts/generateWallet.js",
-    "get-private-key": "node ./scripts/getPrivateKey.js"
+    "get-private-key": "node ./scripts/getPrivateKey.js",
+    "diagrams": "bash scripts/make-diagrams.bash"
   },
+  "keywords": [
+    "crowdlending",
+    "ethereum",
+    "loan",
+    "lending",
+    "token",
+    "ERC20"
+  ],
   "directories": {
     "test": "test"
   },
@@ -39,7 +48,8 @@
     "papaparse": "^4.3.6",
     "solidity-coverage": "^0.4.7",
     "truffle-hdwallet-provider": "0.0.3",
-    "web3-provider-engine": "^13.5.0"
+    "web3-provider-engine": "^13.5.0",
+    "node-plantuml": "^0.5.0"
   },
   "babel": {
     "presets": [
