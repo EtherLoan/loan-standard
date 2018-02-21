@@ -26,7 +26,7 @@ contract LoanBasic is Loan {
     /// @dev trigger when the loan change to stage Funding.
     /// @param token address of the token to be lend.
     /// @param borrower address where the loan is received.
-    event Init(address indexed token, address indexed borrower);
+    event Begin(address indexed token, address indexed borrower);
 
     /// @notice trigger when cancel function is successfully called.
     /// @dev trigger when cancel function is successfully called.

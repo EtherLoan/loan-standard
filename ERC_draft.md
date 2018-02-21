@@ -71,7 +71,7 @@ Note fund of 0 `capital` MUST be throw.
 function fund(uint256 _capital) public returns (bool success);
 ```
 
-##### Triggers Event: Fund
+##### Triggers Event: Funded
 
 #### withdraw
 `lender`, the `msg.sender`, retire `capital`, tranfer tokens from the loan to the `msg.sender`.
@@ -84,7 +84,7 @@ Note withdraw of 0 `capital` MUST be throw.
 function withdraw(uint256 _capital) public returns (bool success);
 ```
 
-##### Triggers Event: Withdraw
+##### Triggers Event: Withdrawn
 
 #### cancel
 `borrower` or `lender`, the `msg.sender`, cancel loan, the state of the loan cange to cenceled.
@@ -97,7 +97,7 @@ OPTIONAL - This method can be used to improve usability, but interfaces and othe
 function cancel() public returns (bool success);
 ```
 
-##### Triggers Event: Cancel
+##### Triggers Event: Cancelled
 
 #### accept
 `borrower`, the `msg.sender`, collect the `principal` in the loan, the loan change his stage to paying.
@@ -109,7 +109,7 @@ Note collect of 0 `principal` MUST be throw.
 ``` js
 function accept() public returns (bool success);
 ```
-##### Triggers Event: Accept
+##### Triggers Event: Accepted
 
 #### payback
 `borrower`, the `msg.sender`, transfers `payment` amount of tokens to the smart contract, if the total amount paid by borrower is higher than the total amout to be paid, change the stage to finished.
@@ -119,7 +119,7 @@ Note payback of 0 `payment` MUST be throw.
 ``` js
 function payback(uint256 _payment) public returns (bool successs);
 ```
-##### Triggers Event: Payback
+##### Triggers Event: Paid
 
 #### stage
 
@@ -131,55 +131,55 @@ function stage() public view returns (uint8)
 
 ### Events
 
-#### Init
+#### Begin
 
 MUST be triggered when the loan begins and the time start count.
 
 ``` js
-event Init(address indexed token, address indexed borrower);
+event Begin(address indexed token, address indexed borrower);
 ```
 
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
 
-#### Fund
+#### Funded
 
 MUST be triggered when `fund` was succesfully called.
 
 ``` js
-event Fund(uint256 indexed capital);
+event Funded(uint256 indexed capital);
 ```
 
-#### Withdraw
+#### Withdrawn
 
 MUST be triggered when `withdraw` was succesfully called.
 
 ``` js
-event Withdraw(uint256 indexed capital);
+event Withdrawn(uint256 indexed capital);
 ```
 
-#### Cancel
+#### Cancelled
 
 MUST be triggered when `cancel` was succesfully called.
 
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
 
 ``` js
-event Cancel();
+event Cancelled();
 ```
 
-#### Accept
+#### Accepted
 MUST be triggered when `collect` was succesfully called.
 
 ``` js
-event Accept(uint256 indexed principal);
+event Accepted(uint256 indexed principal);
 ```
 
-#### PayBack
+#### Paid
 
 MUST be triggered when `payback` was succesfully called.
 
 ``` js
-event Payback(uint256 indexed payment);
+event Paid(uint256 indexed payment);
 ```
 
 #### Defaulted
