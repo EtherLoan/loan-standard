@@ -31,21 +31,21 @@ contract Loan {
     /// @notice trigger when contribute function is successfully called.
     /// @dev trigger when contribute function is successfully called.
     /// @param capital amount of token to contribute.
-    event Funded(uint256 indexed capital);
+    event Funded(address indexed lender, uint256 indexed capital);
 
     /// @notice trigger when withdraw function is successfully called.
     /// @dev trigger when withdraw function is successfully called.
     /// @param capital amount of token to retire.
-    event Withdrawn(uint256 indexed capital);
+    event Withdrawn(address indexed lender, uint256 indexed capital);
 
     /// @notice trigger when collect function is successfully called.
     /// @dev trigger when collect function is successfully called.
     /// @param principal total amount lended.
-    event Accepted(uint256 indexed principal);
+    event Accepted(address indexed borrower, uint256 indexed principal);
 
     /// @notice trigger when payback function is successfully called.
     /// @dev trigger when payback function is successfully called.
     /// @param payment amount of token to repay.
-    event Paid(uint256 indexed payment);
+    event Paid(address indexed borrower, uint256 indexed payment);
 
 }
