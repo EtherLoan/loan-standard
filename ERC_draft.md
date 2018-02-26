@@ -136,7 +136,7 @@ function stage() public view returns (uint8)
 MUST be triggered when the loan begins and the time start count.
 
 ``` js
-event Begin(address indexed token, address indexed borrower);
+event Begin(address indexed token, address indexed borrower, uint256 indexed requiredCapital);
 ```
 
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
@@ -146,7 +146,7 @@ OPTIONAL - This method can be used to improve usability, but interfaces and othe
 MUST be triggered when `fund` was succesfully called.
 
 ``` js
-event Funded(uint256 indexed capital);
+event Funded(address indexed lender, uint256 indexed capital);
 ```
 
 #### Withdrawn
@@ -154,7 +154,7 @@ event Funded(uint256 indexed capital);
 MUST be triggered when `withdraw` was succesfully called.
 
 ``` js
-event Withdrawn(uint256 indexed capital);
+event Withdrawn(address indexed lender, uint256 indexed capital);
 ```
 
 #### Cancelled
@@ -164,14 +164,14 @@ MUST be triggered when `cancel` was succesfully called.
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
 
 ``` js
-event Cancelled();
+event Cancelled(address indexed borrower);
 ```
 
 #### Accepted
 MUST be triggered when `collect` was succesfully called.
 
 ``` js
-event Accepted(uint256 indexed principal);
+event Accepted(address indexed borrower, uint256 indexed principal);
 ```
 
 #### Paid
@@ -179,14 +179,14 @@ event Accepted(uint256 indexed principal);
 MUST be triggered when `payback` was succesfully called.
 
 ``` js
-event Paid(uint256 indexed payment);
+event Paid(address indexed borrower, uint256 indexed payment);
 ```
 
 #### Defaulted
 MUST be triggered when the loan time end and the borrower still due tokens.
 
 ``` js
-event Defaulted(uint256 indexed due);
+event Defaulted(address indexed borrower, uint256 indexed due);
 ```
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
 
@@ -194,7 +194,7 @@ OPTIONAL - This method can be used to improve usability, but interfaces and othe
 MUST be triggered when when the loan time end and it is fully paid.
 
 ``` js
-event Finished();
+event Finished(address indexed borrower);
 ```
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
 

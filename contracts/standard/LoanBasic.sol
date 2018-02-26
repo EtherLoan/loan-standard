@@ -26,19 +26,19 @@ contract LoanBasic is Loan {
     /// @dev trigger when the loan change to stage Funding.
     /// @param token address of the token to be lend.
     /// @param borrower address where the loan is received.
-    event Begin(address indexed token, address indexed borrower);
+    event Begin(address indexed token, address indexed borrower, uint256 indexed requiredCapital);
 
     /// @notice trigger when cancel function is successfully called.
     /// @dev trigger when cancel function is successfully called.
-    event Cancelled();
+    event Cancelled(address indexed borrower);
 
     /// @notice trigger when total payment paid by borrower is lower than the total amout to be paid and the time to paid the loan expire.
     /// @dev trigger when total payment paid by borrower is higher than the total amout to be paid and the time to paid the loan expire.
     /// @param due amount of tokens due.
-    event Defaulted(uint256 indexed due);
+    event Defaulted(address indexed borrower, uint256 indexed due);
 
     /// @notice trigger when total payment paid by borrower is higher than the total amout to be paid.
     /// @dev trigger when total payment paid by borrower is higher than the total amout to be paid.
-    event Finished();
+    event Finished(address indexed borrower);
 
 }
