@@ -24,6 +24,7 @@ This standard interface will allow the development of interoperable lending syst
 * `capital`: amount lended. The amount is represented as a balance of a ERC-20 Token.
 * `payment`: amount repaid. The amount is represented as a balance of a ERC-20 Token.
 * `principal`: amount collected. The amount is represented as a balance of a ERC-20 Token.
+* `terms`: The temrs parameter was choosen to have the type `bytes32`. This in order to make the temrs entries as general as possible while maintaining a very simple code base.
 
 ## Specification
 
@@ -60,15 +61,27 @@ OPTIONAL - This method can be used to improve usability, but interfaces and othe
 function getBorrower() public view returns(address);
 ```
 
+#### getTerms
+
+Returns the terms `bytes32` of the loan.
+
+OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
+
+``` js
+function getTerms() public view returns(bytes32);
+```
+
 #### fund
-`lender`, the `msg.sender`, transfers `capital` amount of tokens to the smart contract, The `msg.sender` should be registered as a `lender` with the capital added to the fund.
+the `msg.sender`, transfers `capital` amount of tokens to the smart contract, The `lender`, should be registered  with the capital added to the fund.
+
+The variable `_lender` was added to differentiate between who transfers the tokens, and who can claim the tokens back.
 
 The function SHOULD throw if the `msg.sender` account balance does not have enough tokens to spend or if `msg.sender `does not aprove that the smart contract can transfer the `capital`.
 
 Note fund of 0 `capital` MUST be throw.
 
 ``` js
-function fund(uint256 _capital) public returns (bool success);
+function fund(address _who, uint256 _capital) public returns (bool success);
 ```
 
 ##### Triggers Event: Funded
@@ -76,18 +89,20 @@ function fund(uint256 _capital) public returns (bool success);
 #### withdraw
 `lender`, the `msg.sender`, retire `capital`, tranfer tokens from the loan to the `msg.sender`.
 
+The variable `_to` was added to differentiate between who can claim the tokens back, and where the tokens will going.
+
 SHOULD throw if the `msg.sender` account balance does not have enough tokens to retire. the retire could means the amount payback by the borrower, or in some cases, the lender may regret his investment and retire that amount, only in funding stage.
 
 Note withdraw of 0 `capital` MUST be throw.
 
 ``` js
-function withdraw(uint256 _capital) public returns (bool success);
+function withdraw(address _to, uint256 _capital) public returns (bool success);
 ```
 
 ##### Triggers Event: Withdrawn
 
 #### cancel
-`borrower` or `lender`, the `msg.sender`, cancel loan, the state of the loan cange to cenceled.
+The `msg.sender`, cancel loan, the state of the loan change to cenceled.
 
 SHOULD throw if the current stage of the loan is not funding.
 
@@ -102,7 +117,7 @@ function cancel() public returns (bool success);
 #### accept
 `borrower`, the `msg.sender`, collect the `principal` in the loan, the loan change his stage to paying.
 
-when the `borrower` collects the `principal` implicitly accepts the terms of the loan.
+when the `borrower` collects the `principal` implicitly accepts the `terms` of the loan.
 
 Note collect of 0 `principal` MUST be throw.
 
@@ -112,12 +127,14 @@ function accept() public returns (bool success);
 ##### Triggers Event: Accepted
 
 #### payback
-`borrower`, the `msg.sender`, transfers `payment` amount of tokens to the smart contract, if the total amount paid by borrower is higher than the total amout to be paid, change the stage to finished.
+The `msg.sender`, transfers `payment` amount of tokens to the smart contract, if the total amount paid by borrower is higher than the total amout to be paid, change the stage to finished.
+
+The variable `_who` was added to differentiate between who transfers the tokens adn the `borrower`.
 
 Note payback of 0 `payment` MUST be throw.
 
 ``` js
-function payback(uint256 _payment) public returns (bool successs);
+function payback(address _who, uint256 _payment) public returns (bool successs);
 ```
 ##### Triggers Event: Paid
 
@@ -131,12 +148,12 @@ function stage() public view returns (uint8)
 
 ### Events
 
-#### Begin
+#### Begun
 
 MUST be triggered when the loan begins and the time start count.
 
 ``` js
-event Begin(address indexed token, address indexed borrower, uint256 indexed requiredCapital);
+event Begun(address token, address indexed borrower, uint256 indexed requiredCapital);
 ```
 
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
@@ -146,7 +163,7 @@ OPTIONAL - This method can be used to improve usability, but interfaces and othe
 MUST be triggered when `fund` was succesfully called.
 
 ``` js
-event Funded(address indexed lender, uint256 indexed capital);
+event Funded(address indexed from, address indexed lender, uint256 indexed capital);
 ```
 
 #### Withdrawn
@@ -154,7 +171,7 @@ event Funded(address indexed lender, uint256 indexed capital);
 MUST be triggered when `withdraw` was succesfully called.
 
 ``` js
-event Withdrawn(address indexed lender, uint256 indexed capital);
+event Withdrawn(address indexed lender, address indexed receiver, uint256 indexed capital);
 ```
 
 #### Cancelled
@@ -164,14 +181,14 @@ MUST be triggered when `cancel` was succesfully called.
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
 
 ``` js
-event Cancelled(address indexed borrower);
+event Cancelled(address _who);;
 ```
 
 #### Accepted
 MUST be triggered when `collect` was succesfully called.
 
 ``` js
-event Accepted(address indexed borrower, uint256 indexed principal);
+event Accepted(addres  borrower, uint256 principal, bytes32 terms);
 ```
 
 #### Paid
@@ -179,14 +196,14 @@ event Accepted(address indexed borrower, uint256 indexed principal);
 MUST be triggered when `payback` was succesfully called.
 
 ``` js
-event Paid(address indexed borrower, uint256 indexed payment);
+event Paid(address indexed from, address borrower, uint256 payment);
 ```
 
 #### Defaulted
 MUST be triggered when the loan time end and the borrower still due tokens.
 
 ``` js
-event Defaulted(address indexed borrower, uint256 indexed due);
+event Defaulted(address borrower, uint256 debt);
 ```
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
 
@@ -194,7 +211,7 @@ OPTIONAL - This method can be used to improve usability, but interfaces and othe
 MUST be triggered when when the loan time end and it is fully paid.
 
 ``` js
-event Finished(address indexed borrower);
+event Finished(address borrower);
 ```
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
 

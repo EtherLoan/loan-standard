@@ -18,6 +18,10 @@ contract LoanBasic is Loan {
     /// @dev returns the address of the beneficiary of the loan 'borrower'.
     function getBorrower() public view returns(address);
 
+    /// @notice returns the address of the beneficiary of the loan.
+    /// @dev returns the address of the beneficiary of the loan 'borrower'.
+    function getTerms() public view returns(bytes32);
+
     /// @notice cancel the loan. (i.e. borrower Morty got the tokens from other source and doesn't needs Rick tokens, then Morty cancel the loan).
     /// @dev change the loan stage to canceled.
     function cancel() public returns (bool success);
@@ -30,15 +34,15 @@ contract LoanBasic is Loan {
 
     /// @notice trigger when cancel function is successfully called.
     /// @dev trigger when cancel function is successfully called.
-    event Cancelled(address indexed borrower);
+    event Cancelled(address _who);
 
     /// @notice trigger when total payment paid by borrower is lower than the total amout to be paid and the time to paid the loan expire.
     /// @dev trigger when total payment paid by borrower is higher than the total amout to be paid and the time to paid the loan expire.
-    /// @param due amount of tokens due.
-    event Defaulted(address indexed borrower, uint256 indexed due);
+    /// @param debt amount of tokens that the borrower has as debt.
+    event Defaulted(address borrower, uint256 debt);
 
     /// @notice trigger when total payment paid by borrower is higher than the total amout to be paid.
     /// @dev trigger when total payment paid by borrower is higher than the total amout to be paid.
-    event Finished(address indexed borrower);
+    event Finished(address borrower);
 
 }
