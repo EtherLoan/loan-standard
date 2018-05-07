@@ -81,7 +81,7 @@ The function SHOULD throw if the `msg.sender` account balance does not have enou
 Note fund of 0 `capital` MUST be throw.
 
 ``` js
-function fund(address _who, uint256 _capital) public returns (bool success);
+function fund(address _lender, uint256 _capital) public returns (bool success);
 ```
 
 ##### Triggers Event: Funded
@@ -129,12 +129,12 @@ function accept() public returns (bool success);
 #### payback
 The `msg.sender`, transfers `payment` amount of tokens to the smart contract, if the total amount paid by borrower is higher than the total amout to be paid, change the stage to finished.
 
-The variable `_who` was added to differentiate between who transfers the tokens adn the `borrower`.
+The variable `_from` was added to differentiate between who transfers the tokens and the `borrower`.
 
 Note payback of 0 `payment` MUST be throw.
 
 ``` js
-function payback(address _who, uint256 _payment) public returns (bool successs);
+function payback(address _from, uint256 _payment) public returns (bool successs);
 ```
 ##### Triggers Event: Paid
 
@@ -188,7 +188,7 @@ event Cancelled(address _who);;
 MUST be triggered when `collect` was succesfully called.
 
 ``` js
-event Accepted(addres borrower, uint256 principal, bytes32 terms);
+event Accepted(address borrower, uint256 principal, bytes32 terms);
 ```
 
 #### Paid
@@ -196,7 +196,7 @@ event Accepted(addres borrower, uint256 principal, bytes32 terms);
 MUST be triggered when `payback` was succesfully called.
 
 ``` js
-event Paid(address indexed from, address indexed borrower, uint256 payment);
+event Paid(address indexed from, address borrower, uint256 payment);
 ```
 
 #### Defaulted

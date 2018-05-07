@@ -1,4 +1,4 @@
-pragma solidity 0.4.18;
+pragma solidity 0.4.23;
 
 import './Loan.sol';
 
@@ -18,7 +18,7 @@ contract LoanBasic is Loan {
     /// @dev returns the address of the beneficiary of the loan 'borrower'.
     function getBorrower() public view returns(address);
 
-    /// @notice returns the address of the beneficiary of the loan.
+    /// @notice returns the terms of the loan.
     /// @dev returns the address of the beneficiary of the loan 'borrower'.
     function getTerms() public view returns(bytes32);
 
@@ -30,19 +30,23 @@ contract LoanBasic is Loan {
     /// @dev trigger when the loan change to stage Funding.
     /// @param token address of the token to be lend.
     /// @param borrower address where the loan is received.
-    event Begun(address indexed token, address indexed borrower, uint256 indexed requiredCapital);
+    /// @param requiredCapital amount of tokens that the borrower is asking for.
+    event Begun(address token, address borrower, uint256 requiredCapital);
 
     /// @notice trigger when cancel function is successfully called.
     /// @dev trigger when cancel function is successfully called.
+    /// @param who who trigger the cancel function.
     event Cancelled(address _who);
 
     /// @notice trigger when total payment paid by borrower is lower than the total amout to be paid and the time to paid the loan expire.
     /// @dev trigger when total payment paid by borrower is higher than the total amout to be paid and the time to paid the loan expire.
+    /// @param borrower who ask for the loan.
     /// @param debt amount of tokens that the borrower has as debt.
     event Defaulted(address borrower, uint256 debt);
 
-    /// @notice trigger when total payment paid by borrower is higher than the total amout to be paid.
+    /// @notice trigger when the borrower paid the whole loan back.
     /// @dev trigger when total payment paid by borrower is higher than the total amout to be paid.
+    /// @param borrower who ask for the loan.
     event Finished(address borrower);
 
 }
