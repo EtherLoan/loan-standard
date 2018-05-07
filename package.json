@@ -1,6 +1,6 @@
 {
   "name": "@etherloan/loan-standard",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "New EIPs proposal for loan standard.",
   "repository": "https://github.com/EtherLoan/loan-standard",
   "license": "MIT",
@@ -17,6 +17,9 @@
     "loan",
     "lending",
     "token",
+    "secutity",
+    "collateral",
+    "borrow",
     "ERC20"
   ],
   "directories": {

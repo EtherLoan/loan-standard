@@ -1,13 +1,13 @@
 @startuml
-INIT: The loan is deployed, can be set attributes
-FUNDING : The loan is being funded by the lenders
-PAYING: The loan is accepted and the principal collected by the borrower\nThe loan is being paying back by the borrower
-CANCELED: The loan is canceled by the borrower
-FINISHED: The loan is completly repayed by the borrower
-DEFAULTED: The loan wasn't  repayed based on a rule
+SETUP: The loan is deployed, attributes can be set
+FUNDING : The loan is being funded.
+PAYING: The loan is accepted and the principal collected by the borrower\nThe loan is being paying back.
+CANCELED: The loan is canceled.
+FINISHED: The loan is completly repayed.
+DEFAULTED: The loan wasn't repayed.
 
-[*] --> INIT
-INIT --> FUNDING: being()
+[*] --> SETUP 
+SETUP --> FUNDING: being()
 FUNDING --> FUNDING: fund()
 FUNDING -left-> FUNDING: withdraw()
 FUNDING --> PAYING: accept()
