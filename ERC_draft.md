@@ -5,7 +5,7 @@ Author: Andres Junge <andres.junge@consensys.net>, Anibal Catalán <anibal.catal
 Type: Standard
 Category ERC
 Status: Draft
-Created: 2017-11-01
+Created: 
 </pre>
 
 ## Simple Summary
@@ -150,10 +150,10 @@ function stage() public view returns (uint8)
 
 #### Begun
 
-MUST be triggered when the loan begins and the time start count.
+MUST be triggered when you set all the parameters and the loan is ready to start been fundable.
 
 ``` js
-event Begun(address token, address indexed borrower, uint256 indexed requiredCapital);
+event Begun(address token, address borrower, uint256 requiredCapital);
 ```
 
 OPTIONAL - This method can be used to improve usability, but interfaces and other contracts MUST NOT expect these values to be present.
@@ -163,7 +163,7 @@ OPTIONAL - This method can be used to improve usability, but interfaces and othe
 MUST be triggered when `fund` was succesfully called.
 
 ``` js
-event Funded(address indexed from, address indexed lender, uint256 indexed capital);
+event Funded(address indexed from, address indexed lender, uint256 capital);
 ```
 
 #### Withdrawn
@@ -171,7 +171,7 @@ event Funded(address indexed from, address indexed lender, uint256 indexed capit
 MUST be triggered when `withdraw` was succesfully called.
 
 ``` js
-event Withdrawn(address indexed lender, address indexed receiver, uint256 indexed capital);
+event Withdrawn(address indexed lender, address indexed receiver, uint256 capital);
 ```
 
 #### Cancelled
@@ -188,7 +188,7 @@ event Cancelled(address _who);;
 MUST be triggered when `collect` was succesfully called.
 
 ``` js
-event Accepted(addres  borrower, uint256 principal, bytes32 terms);
+event Accepted(addres borrower, uint256 principal, bytes32 terms);
 ```
 
 #### Paid
@@ -196,7 +196,7 @@ event Accepted(addres  borrower, uint256 principal, bytes32 terms);
 MUST be triggered when `payback` was succesfully called.
 
 ``` js
-event Paid(address indexed from, address borrower, uint256 payment);
+event Paid(address indexed from, address indexed borrower, uint256 payment);
 ```
 
 #### Defaulted
